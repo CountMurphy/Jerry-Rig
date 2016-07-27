@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/icons">
+        <file>icons/DataConverterIcon200-175.png</file>
+    </qresource>
+</RCC>

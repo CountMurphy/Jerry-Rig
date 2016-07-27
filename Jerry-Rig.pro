@@ -18,3 +18,7 @@ SOURCES += main.cpp\
 HEADERS  += mainmenu.h
 
 FORMS    += mainmenu.ui
+
+
+RESOURCES += \
+    icons.qrc
