@@ -14,7 +14,7 @@
    <string>Jerry-Rig</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="icons.qrc">
     <normaloff>:/new/icons/icons/DataConverterIcon200-175.png</normaloff>:/new/icons/icons/DataConverterIcon200-175.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -31,7 +31,7 @@
      <string>Convert!</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="icons.qrc">
       <normaloff>:/new/icons/icons/DataConverterIcon200-175.png</normaloff>:/new/icons/icons/DataConverterIcon200-175.png</iconset>
     </property>
     <property name="iconSize">
@@ -39,6 +39,32 @@
       <width>100</width>
       <height>100</height>
      </size>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>100</y>
+      <width>211</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Quality:</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>100</y>
+      <width>211</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>File Size:</string>
     </property>
    </widget>
   </widget>
@@ -83,6 +109,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
