@@ -14,7 +14,7 @@
    <string>Jerry-Rig</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset>
     <normaloff>:/new/icons/icons/DataConverterIcon200-175.png</normaloff>:/new/icons/icons/DataConverterIcon200-175.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -28,10 +28,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Convert!</string>
     </property>
     <property name="icon">
-     <iconset resource="icons.qrc">
+     <iconset>
       <normaloff>:/new/icons/icons/DataConverterIcon200-175.png</normaloff>:/new/icons/icons/DataConverterIcon200-175.png</iconset>
     </property>
     <property name="iconSize">
@@ -51,6 +51,16 @@
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="action_Prefrences"/>
+    <addaction name="separator"/>
+    <addaction name="action_Quit"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -61,10 +71,18 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="action_Prefrences">
+   <property name="text">
+    <string>&amp;Prefrences</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

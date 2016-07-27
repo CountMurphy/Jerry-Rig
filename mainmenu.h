@@ -15,8 +15,13 @@ public:
     explicit MainMenu(QWidget *parent = 0);
     ~MainMenu();
 
+public slots:
+    void Quit();
+
 private:
     Ui::MainMenu *ui;
+private slots:
+    void ShowPref();
 };
 
 #endif // MAINMENU_H
