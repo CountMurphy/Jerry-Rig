@@ -10,6 +10,7 @@ MainMenu::MainMenu(QWidget *parent) :
     ui(new Ui::MainMenu)
 {
     ui->setupUi(this);
+    smenu=new SettingMenu(this);
 
     //create connections
     connect(ui->action_Quit,SIGNAL(triggered(bool)),this,SLOT(Quit()));
@@ -24,12 +25,11 @@ MainMenu::~MainMenu()
 
 void MainMenu::Quit()
 {
-    cout<<"Jerry-Rig is Exiting"<<endl;
+    cerr<<"Jerry-Rig is Exiting"<<endl;
     qApp->quit();
 }
 
 void MainMenu::ShowPref()
 {
-    SettingMenu *smenu=new SettingMenu(this);
     smenu->show();
 }

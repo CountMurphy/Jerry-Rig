@@ -2,6 +2,7 @@
 #define MAINMENU_H
 
 #include <QMainWindow>
+#include<settingmenu.h>
 
 namespace Ui {
 class MainMenu;
@@ -20,6 +21,7 @@ public slots:
 
 private:
     Ui::MainMenu *ui;
+    SettingMenu *smenu;
 private slots:
     void ShowPref();
 };
