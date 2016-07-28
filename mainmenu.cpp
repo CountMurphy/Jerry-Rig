@@ -10,7 +10,7 @@ MainMenu::MainMenu(QWidget *parent) :
     ui(new Ui::MainMenu)
 {
     ui->setupUi(this);
-    smenu=new SettingMenu(this);
+    smenu=new SettingMenu(this,settings);
 
     //create connections
     connect(ui->action_Quit,SIGNAL(triggered(bool)),this,SLOT(Quit()));

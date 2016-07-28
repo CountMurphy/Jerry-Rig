@@ -22,6 +22,7 @@ public slots:
 private:
     Ui::MainMenu *ui;
     SettingMenu *smenu;
+    QSettings *settings=new QSettings();
 private slots:
     void ShowPref();
 };
