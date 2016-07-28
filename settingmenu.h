@@ -18,6 +18,10 @@ public:
 
 private:
     Ui::SettingMenu *ui;
+    QSettings *_settings;
+
+private slots:
+    void OkClick();
 };
 
 #endif // SETTINGMENU_H

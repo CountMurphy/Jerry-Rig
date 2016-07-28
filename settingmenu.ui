@@ -41,7 +41,7 @@
    <property name="title">
     <string>Converter To Use:</string>
    </property>
-   <widget class="QRadioButton" name="radioButton">
+   <widget class="QRadioButton" name="ffmpeg">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -54,7 +54,7 @@
      <string>FFMPEG</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_2">
+   <widget class="QRadioButton" name="libav">
     <property name="geometry">
      <rect>
       <x>180</x>
