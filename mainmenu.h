@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include<settingmenu.h>
+#include<processmanager.h>
 
 namespace Ui {
 class MainMenu;
@@ -22,9 +23,11 @@ public slots:
 private:
     Ui::MainMenu *ui;
     SettingMenu *smenu;
+    ProcessManager *manager;
     QSettings *settings=new QSettings();
 private slots:
     void ShowPref();
+    void BeginWork();
 };
 
 #endif // MAINMENU_H

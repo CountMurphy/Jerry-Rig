@@ -14,13 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainmenu.cpp \
-    settingmenu.cpp
+    settingmenu.cpp \
+    processmanager.cpp
 
 HEADERS  += mainmenu.h \
-    settingmenu.h
+    settingmenu.h \
+    processmanager.h
 
 FORMS    += mainmenu.ui \
-    settingmenu.ui
+    settingmenu.ui \
+    processmanager.ui
 
 
 RESOURCES += \

@@ -24,6 +24,7 @@ MainMenu::MainMenu(QWidget *parent) :
     //create connections
     connect(ui->action_Quit,SIGNAL(triggered(bool)),this,SLOT(Quit()));
     connect(ui->action_Prefrences,SIGNAL(triggered(bool)),this,SLOT(ShowPref()));
+    connect(ui->BTNConvert,SIGNAL(clicked(bool)),this,SLOT(BeginWork()));
 }
 
 MainMenu::~MainMenu()
@@ -41,4 +42,12 @@ void MainMenu::Quit()
 void MainMenu::ShowPref()
 {
     smenu->show();
+}
+
+void MainMenu::BeginWork()
+{
+    manager=new ProcessManager(this,settings);
+    //remove pesky close buttons and such
+    manager->setWindowFlags(Qt::SplashScreen);
+    manager->show();
 }
