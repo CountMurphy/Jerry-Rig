@@ -12,6 +12,15 @@ MainMenu::MainMenu(QWidget *parent) :
     ui->setupUi(this);
     smenu=new SettingMenu(this,settings);
 
+    //create combo box values
+    ui->qualBox->addItem("High");
+    ui->qualBox->addItem("Medium");
+    ui->qualBox->addItem("Low");
+
+    ui->sizeBox->addItem("Small (slow conversion)");
+    ui->sizeBox->addItem("Med (med conversion)");
+    ui->sizeBox->addItem("Large (fast conversion)");
+
     //create connections
     connect(ui->action_Quit,SIGNAL(triggered(bool)),this,SLOT(Quit()));
     connect(ui->action_Prefrences,SIGNAL(triggered(bool)),this,SLOT(ShowPref()));

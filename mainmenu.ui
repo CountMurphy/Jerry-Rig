@@ -53,6 +53,16 @@
     <property name="title">
      <string>Quality:</string>
     </property>
+    <widget class="QComboBox" name="qualBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>191</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
@@ -66,6 +76,16 @@
     <property name="title">
      <string>File Size:</string>
     </property>
+    <widget class="QComboBox" name="sizeBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>201</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
