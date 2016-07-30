@@ -70,6 +70,7 @@ void MainMenu::disposeProcess(int status)
     QString output=status!=0?"Processed failed":"Conversion Complete";
     cerr<<output.toStdString()<<endl;
     manager->close();
+    QMessageBox::information(this,"Finished","Video Converted!");
 }
 
 

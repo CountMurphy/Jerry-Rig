@@ -1,5 +1,6 @@
 #include<iostream>
 #include<QProcess>
+#include<QTextCodec>
 #include "processmanager.h"
 #include "ui_processmanager.h"
 
@@ -18,7 +19,7 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings, convParams 
     converter = new QProcess(parent);
 
     connect(converter,SIGNAL(finished(int)),parentWidget(),SLOT(disposeProcess(int)));
-    connect(converter,SIGNAL(readyRead()),this,SLOT(readReady()));
+    connect(converter,SIGNAL(readyReadStandardError()),this,SLOT(readReady()));
 
     QString program= isFFMPEG ? "ffmpeg":"avconv";
     QStringList args;
@@ -65,5 +66,8 @@ ProcessManager::~ProcessManager()
 
 void ProcessManager::readReady()
 {
-    QByteArray data=converter->readAllStandardOutput();
+    QByteArray data=converter->readAllStandardError();
+    QString DataAsString;
+    DataAsString.append(data.data());
+    ui->label->setText(DataAsString);
 }
