@@ -21,7 +21,9 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings) :
     connect(converter,SIGNAL(readyRead()),this,SLOT(readReady()));
 
     QString program="ls";
-    converter->start(program);
+    QStringList args;
+    args<<"-lah";
+    converter->start(program, args);
 }
 
 ProcessManager::~ProcessManager()
