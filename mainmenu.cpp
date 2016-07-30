@@ -48,12 +48,13 @@ void MainMenu::BeginWork()
 {
     manager=new ProcessManager(this,settings);
     //remove pesky close buttons and such
-    manager->setWindowFlags(Qt::Popup);
     manager->show();
 }
 
 
-void MainMenu::disposeProcess()
+void MainMenu::disposeProcess(int status)
 {
+    QString output=status!=0?"Processed failed":"Conversion Complete";
+    cerr<<output.toStdString()<<endl;
     manager->close();
 }

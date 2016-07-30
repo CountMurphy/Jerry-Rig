@@ -1,4 +1,5 @@
 #include<iostream>
+#include<QProcess>
 #include "processmanager.h"
 #include "ui_processmanager.h"
 
@@ -14,12 +15,22 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings) :
 
     //kick off worker process
     cerr<<"Converstion Starting..."<<endl<<endl;
-    //connect(ui->pushButton,SIGNAL(clicked(bool)),parentWidget(),SLOT(gc()));
+    converter = new QProcess(parent);
+
+    connect(converter,SIGNAL(finished(int)),parentWidget(),SLOT(disposeProcess(int)));
+    connect(converter,SIGNAL(readyRead()),this,SLOT(readReady()));
+
+    QString program="ls";
+    converter->start(program);
 }
 
 ProcessManager::~ProcessManager()
 {
     delete ui;
-    cerr<<"process destoyed";
+    cerr<<"process destoyed"<<endl;
 }
 
+void ProcessManager::readReady()
+{
+    QByteArray data=converter->readAllStandardOutput();
+}
