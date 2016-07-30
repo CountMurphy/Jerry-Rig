@@ -57,8 +57,10 @@ void MainMenu::BeginWork()
     convParams params;
     params.Quality=ui->qualBox->currentIndex();
     params.Size=ui->sizeBox->currentIndex();
+    params.input=this->inputLocal;
     manager=new ProcessManager(this,settings,&params);
     //remove pesky close buttons and such
+    manager->setWindowFlags(Qt::Popup);
     manager->show();
 }
 
