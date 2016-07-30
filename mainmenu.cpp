@@ -1,7 +1,7 @@
+#include<iostream>
 #include "mainmenu.h"
 #include "ui_mainmenu.h"
 #include "settingmenu.h"
-#include<iostream>
 
 using namespace std;
 
@@ -46,7 +46,10 @@ void MainMenu::ShowPref()
 
 void MainMenu::BeginWork()
 {
-    manager=new ProcessManager(this,settings);
+    convParams params;
+    params.Quality=ui->qualBox->currentIndex();
+    params.Size=ui->sizeBox->currentIndex();
+    manager=new ProcessManager(this,settings,&params);
     //remove pesky close buttons and such
     manager->show();
 }

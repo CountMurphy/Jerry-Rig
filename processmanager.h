@@ -4,6 +4,7 @@
 #include <QDialog>
 #include<QSettings>
 #include<QProcess>
+#include"convparams.h"
 
 namespace Ui {
 class ProcessManager;
@@ -14,7 +15,7 @@ class ProcessManager : public QDialog
     Q_OBJECT
 
 public:
-    explicit ProcessManager(QWidget *parent = 0, QSettings *settings = 0);//also needs some kind of container or args for params
+    explicit ProcessManager(QWidget *parent = 0, QSettings *settings = 0, convParams *params=0);
     QProcess *converter;
     ~ProcessManager();
 private slots:

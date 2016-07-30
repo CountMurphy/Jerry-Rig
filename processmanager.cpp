@@ -5,7 +5,7 @@
 
 using namespace std;
 
-ProcessManager::ProcessManager(QWidget *parent, QSettings *settings) :
+ProcessManager::ProcessManager(QWidget *parent, QSettings *settings, convParams *params) :
     QDialog(parent),
     ui(new Ui::ProcessManager)
 {
@@ -20,9 +20,40 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings) :
     connect(converter,SIGNAL(finished(int)),parentWidget(),SLOT(disposeProcess(int)));
     connect(converter,SIGNAL(readyRead()),this,SLOT(readReady()));
 
-    QString program="ls";
+    QString program= isFFMPEG ? "ffmpeg":"avconv";
     QStringList args;
-    args<<"-lah";
+
+    args<<"-i" << params->input;
+    args<<"-c:v"<< "libx264";
+
+    switch(params->Quality)
+    {
+    case 0:
+        args<<"-crf"<< "18";
+        break;
+    case 1:
+        args<<"-crf"<< "22";
+        break;
+    case 2:
+        args<<"-crf"<< "25";
+        break;
+    }
+
+    switch(params->Size)
+    {
+    case 0:
+        args<<"-preset"<< "veryslow";
+        break;
+    case 1:
+        args<<"-preset"<< "fast";
+        break;
+    case 2:
+        args<<"-preset"<< "ultrafast";
+        break;
+    }
+
+    args<<params->input+"_converted.mkv";
+
     converter->start(program, args);
 }
 

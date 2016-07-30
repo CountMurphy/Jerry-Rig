@@ -19,7 +19,8 @@ SOURCES += main.cpp\
 
 HEADERS  += mainmenu.h \
     settingmenu.h \
-    processmanager.h
+    processmanager.h \
+    convparams.h
 
 FORMS    += mainmenu.ui \
     settingmenu.ui \
