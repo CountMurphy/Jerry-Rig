@@ -26,9 +26,11 @@ private:
     SettingMenu *smenu;
     ProcessManager *manager;
     QSettings *settings=new QSettings();
+    QString inputLocal;
 private slots:
     void ShowPref();
     void BeginWork();
+    void diaglogIt();
 };
 
 #endif // MAINMENU_H
