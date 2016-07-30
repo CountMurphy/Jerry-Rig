@@ -19,6 +19,7 @@ public:
 
 public slots:
     void Quit();
+    void disposeProcess();
 
 private:
     Ui::MainMenu *ui;

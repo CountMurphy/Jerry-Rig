@@ -48,6 +48,12 @@ void MainMenu::BeginWork()
 {
     manager=new ProcessManager(this,settings);
     //remove pesky close buttons and such
-    manager->setWindowFlags(Qt::SplashScreen);
+    manager->setWindowFlags(Qt::Popup);
     manager->show();
+}
+
+
+void MainMenu::disposeProcess()
+{
+    manager->close();
 }

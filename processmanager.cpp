@@ -14,6 +14,7 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings) :
 
     //kick off worker process
     cerr<<"Converstion Starting..."<<endl<<endl;
+    //connect(ui->pushButton,SIGNAL(clicked(bool)),parentWidget(),SLOT(gc()));
 }
 
 ProcessManager::~ProcessManager()
@@ -22,4 +23,3 @@ ProcessManager::~ProcessManager()
     cerr<<"process destoyed";
 }
 
-//http://stackoverflow.com/a/358277
