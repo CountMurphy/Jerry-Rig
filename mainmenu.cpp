@@ -67,10 +67,19 @@ void MainMenu::BeginWork()
 
 void MainMenu::disposeProcess(int status)
 {
-    QString output=status!=0?"Processed failed":"Conversion Complete";
+    QString output;
+    if(status!=0)
+    {
+        output="Processed failed";
+        QMessageBox::information(this,"Failure","Video Conversion Failed!");
+    }
+    else
+    {
+        output="Conversion Complete";
+        QMessageBox::information(this,"Finished","Video Converted!");
+    }
     cerr<<output.toStdString()<<endl;
     manager->close();
-    QMessageBox::information(this,"Finished","Video Converted!");
 }
 
 
