@@ -27,9 +27,10 @@ private:
     ProcessManager *manager;
     QSettings *settings=new QSettings();
     QString inputLocal;
+    void BeginWork();
 private slots:
     void ShowPref();
-    void BeginWork();
+    void ConvertClick();
     void diaglogIt();
 };
 

@@ -26,7 +26,7 @@ MainMenu::MainMenu(QWidget *parent) :
     //create connections
     connect(ui->action_Quit,SIGNAL(triggered(bool)),this,SLOT(Quit()));
     connect(ui->action_Prefrences,SIGNAL(triggered(bool)),this,SLOT(ShowPref()));
-    connect(ui->BTNConvert,SIGNAL(clicked(bool)),this,SLOT(BeginWork()));
+    connect(ui->BTNConvert,SIGNAL(clicked(bool)),this,SLOT(ConvertClick()));
     connect(ui->BTNOpen,SIGNAL(clicked(bool)),this,SLOT(diaglogIt()));
 }
 
@@ -47,21 +47,42 @@ void MainMenu::ShowPref()
     smenu->show();
 }
 
-void MainMenu::BeginWork()
+void MainMenu::ConvertClick()
 {
     if(this->inputLocal.count()==0)
     {
         QMessageBox::warning(this,"","You must first open a file to convert");
         return;
     }
+
+    if(QFile::exists(inputLocal+"_converted.mkv"))
+    {
+        cerr<<"File Exits warning"<<endl;
+        QMessageBox overwriteDialog;
+        int retVal=overwriteDialog.warning(this,"File Exists", inputLocal+"_converted.mkv" + " already exists. Overwrite?",QMessageBox::Yes,QMessageBox::No);
+        if(retVal!=QMessageBox::Yes)
+        {
+            return;
+        }
+        QFile::remove(inputLocal+"_converted.mkv");
+    }
+    BeginWork();
+
+}
+
+
+void MainMenu::BeginWork()
+{
     convParams params;
     params.Quality=ui->qualBox->currentIndex();
     params.Size=ui->sizeBox->currentIndex();
     params.input=this->inputLocal;
+
     manager=new ProcessManager(this,settings,&params);
     //remove pesky close buttons and such
     manager->setWindowFlags(Qt::Popup);
     manager->show();
+
 }
 
 
