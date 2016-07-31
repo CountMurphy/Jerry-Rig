@@ -80,7 +80,7 @@ void MainMenu::BeginWork()
 
     manager=new ProcessManager(this,settings,&params);
     //remove pesky close buttons and such
-    manager->setWindowFlags(Qt::Popup);
+    manager->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
     manager->show();
 
 }

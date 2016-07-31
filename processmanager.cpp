@@ -71,3 +71,4 @@ void ProcessManager::readReady()
     DataAsString.append(data.data());
     ui->label->setText(DataAsString);
 }
+
