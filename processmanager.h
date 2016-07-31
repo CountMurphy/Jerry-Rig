@@ -20,6 +20,7 @@ public:
     ~ProcessManager();
 private slots:
     void readReady();
+    void cancel();
 
 private:
     Ui::ProcessManager *ui;

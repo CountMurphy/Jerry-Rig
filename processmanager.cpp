@@ -12,6 +12,7 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings, convParams 
 {
     ui->setupUi(this);
     setAttribute(Qt::WA_DeleteOnClose);
+
     bool isFFMPEG=settings->value("FFMPEG").toBool();
 
     //kick off worker process
@@ -20,6 +21,7 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings, convParams 
 
     connect(converter,SIGNAL(finished(int)),parentWidget(),SLOT(disposeProcess(int)));
     connect(converter,SIGNAL(readyReadStandardError()),this,SLOT(readReady()));
+    connect(ui->buttonBox,SIGNAL(clicked(QAbstractButton*)),this,SLOT(cancel()));
 
     QString program= isFFMPEG ? "ffmpeg":"avconv";
     QStringList args;
@@ -72,3 +74,8 @@ void ProcessManager::readReady()
     ui->label->setText(DataAsString);
 }
 
+void ProcessManager::cancel()
+{
+    converter->terminate();
+    ui->label->setText("Please wait while conversion terminates....");
+}
