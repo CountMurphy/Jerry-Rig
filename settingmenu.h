@@ -14,6 +14,7 @@ class SettingMenu : public QDialog
 
 public:
     explicit SettingMenu(QWidget *parent = 0, QSettings *settings=0);
+    void ShowWizard();
     ~SettingMenu();
 
 private:

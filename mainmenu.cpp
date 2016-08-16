@@ -17,7 +17,7 @@ MainMenu::MainMenu(QWidget *parent) :
     {
         //first run time!
         cerr<<"Showing first Run wizard"<<endl;
-        smenu->show();
+        smenu->ShowWizard();
     }
 
     //create combo box values

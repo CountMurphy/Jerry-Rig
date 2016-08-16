@@ -18,13 +18,6 @@ SettingMenu::SettingMenu(QWidget *parent, QSettings *settings) :
 
     bool ffmpeg=this->_settings->value("FFMPEG").toBool();
 
-    if(!this->_settings->value("hasSavedSettings").toBool())
-    {
-        this->_settings->setValue("hasSavedSettings",true);
-        QMessageBox::information(this,"Welcome To Jerry-Rig!","Welcome to Jerry-Rig! You need to specify which base converting program you want to use. If you are unsure, just leave it checked for 'FFMPEG'");
-        ffmpeg=true; // <3 ffmpeg
-    }
-
     ui->ffmpeg->setChecked(ffmpeg);
     ui->libav->setChecked(!ffmpeg);
 
@@ -44,4 +37,15 @@ void SettingMenu::OkClick()
     this->_settings->setValue("FFMPEG",ui->ffmpeg->isChecked());
     this->_settings->sync();
     cerr<<"Saving User Settings"<<endl;
+}
+
+void SettingMenu::ShowWizard()
+{
+    this->setModal(true);
+    this->setVisible(true);
+    this->_settings->setValue("hasSavedSettings",true);
+    QMessageBox::information(this,"Welcome To Jerry-Rig!","Welcome to Jerry-Rig! You need to specify which base converting program you want to use. If you are unsure, just leave it checked for 'FFMPEG'");
+
+    ui->ffmpeg->setChecked(true);// <3 ffmpeg
+    ui->libav->setChecked(false);
 }
