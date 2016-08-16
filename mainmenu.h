@@ -25,7 +25,7 @@ private:
     Ui::MainMenu *ui;
     SettingMenu *smenu;
     ProcessManager *manager;
-    QSettings *settings=new QSettings();
+    QSettings *settings=new QSettings("Jerry-Rig");
     QString inputLocal;
     void BeginWork();
 private slots:

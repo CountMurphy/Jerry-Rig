@@ -42,5 +42,6 @@ void SettingMenu::OkClick()
 {
     //save settings and such
     this->_settings->setValue("FFMPEG",ui->ffmpeg->isChecked());
+    this->_settings->sync();
     cerr<<"Saving User Settings"<<endl;
 }
