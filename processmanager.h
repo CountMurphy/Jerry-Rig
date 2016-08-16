@@ -21,6 +21,7 @@ public:
 private slots:
     void readReady();
     void cancel();
+    void Error(QProcess::ProcessError perror);
 
 private:
     Ui::ProcessManager *ui;
