@@ -13,6 +13,12 @@ MainMenu::MainMenu(QWidget *parent) :
 {
     ui->setupUi(this);
     smenu=new SettingMenu(this,settings);
+    if(!settings->value("hasSavedSettings").toBool())
+    {
+        //first run time!
+        cerr<<"Showing first Run wizard"<<endl;
+        this->ShowPref();
+    }
 
     //create combo box values
     ui->qualBox->addItem("High");
