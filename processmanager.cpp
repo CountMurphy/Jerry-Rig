@@ -14,6 +14,8 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings, convParams 
     setAttribute(Qt::WA_DeleteOnClose);
 
     bool isFFMPEG=settings->value("FFMPEG").toBool();
+    QString app=isFFMPEG?"FFMPEG":"LibAV";
+    ui->label->setText("You do not have "+app+" installed. Please install to continue");
 
     //kick off worker process
     cerr<<"Converstion Starting..."<<endl<<endl;
