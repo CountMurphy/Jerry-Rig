@@ -30,6 +30,7 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings, convParams 
 
     args<<"-i" << params->input;
     args<<"-c:v"<< "libx264";
+    args<<"-c:s"<< "copy";
 
     switch(params->Quality)
     {
