@@ -28,6 +28,7 @@ private:
     QSettings *settings=new QSettings("Jerry-Rig");
     QString inputLocal;
     void BeginWork();
+    const double versionNumber=2.1;
 private slots:
     void ShowPref();
     void ConvertClick();

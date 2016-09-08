@@ -20,6 +20,9 @@ MainMenu::MainMenu(QWidget *parent) :
         smenu->ShowWizard();
     }
 
+    ui->lbl_version->setText("Version: " + QString::number(this->versionNumber));
+
+
     //create combo box values
     ui->qualBox->addItem("High");
     ui->qualBox->addItem("Medium");
