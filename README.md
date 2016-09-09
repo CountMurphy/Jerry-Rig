@@ -12,10 +12,12 @@ Jerry-Rig was created using QT 5. As such building is quite simple.
 Prereqs:
 - QT5
 - FFMPEG or LibAV
+- libx264
 
 To Build:
 
 run
+
 	qmake
 	make
 
