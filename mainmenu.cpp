@@ -4,6 +4,8 @@
 #include "mainmenu.h"
 #include "ui_mainmenu.h"
 #include "settingmenu.h"
+#include <QList>
+#include <QDirIterator>
 
 using namespace std;
 
@@ -65,16 +67,40 @@ void MainMenu::ConvertClick()
         return;
     }
 
-    if(QFile::exists(inputLocal+"_converted.mkv"))
+    if(ui->chkBatch->checkState()!=Qt::Checked)
     {
-        cerr<<"File Exits warning"<<endl;
-        QMessageBox overwriteDialog;
-        int retVal=overwriteDialog.warning(this,"File Exists", inputLocal+"_converted.mkv" + " already exists. Overwrite?",QMessageBox::Yes,QMessageBox::No);
-        if(retVal!=QMessageBox::Yes)
+        if(QFile::exists(inputLocal+"_converted.mkv"))
         {
-            return;
+            cerr<<"File Exits warning"<<endl;
+            QMessageBox overwriteDialog;
+            int retVal=overwriteDialog.warning(this,"File Exists", inputLocal+"_converted.mkv" + " already exists. Overwrite?",QMessageBox::Yes,QMessageBox::No);
+            if(retVal!=QMessageBox::Yes)
+            {
+                return;
+            }
+            QFile::remove(inputLocal+"_converted.mkv");
         }
-        QFile::remove(inputLocal+"_converted.mkv");
+    }else{
+        /*
+         * grab all files in directory (filter by type? or let fail?)
+         * input into array?
+         * feed first
+         * on complete, check array (push or pop, index count)
+         * repeat until done
+        */
+        QString convertDir=QDir(inputLocal).absoluteFilePath(QDir(inputLocal).dirName()+"_converted");
+        if(QDir(inputLocal).mkdir(convertDir) ==false)
+        {
+            QMessageBox overwriteDialog;
+            int retVal=overwriteDialog.warning(this,"Convert DirectoryExists", inputLocal+"_converted" + " already exists. Overwrite?",QMessageBox::Yes,QMessageBox::No);
+            if(retVal!=QMessageBox::Yes)
+            {
+                return;
+            }
+            QDir(convertDir).removeRecursively();
+            QDir(inputLocal).mkdir(QDir(inputLocal).dirName()+"_converted");
+        }
+        batchFiles=FetchFileList(inputLocal);
     }
     BeginWork();
 
@@ -120,7 +146,7 @@ void MainMenu::diaglogIt()
     {
         inputLocal=QFileDialog::getExistingDirectory(this,"Select directory for batch processing",QDir::homePath());
     }else{
-        inputLocal=QFileDialog::getOpenFileName(this,tr("Select video to convert"),QDir::homePath(),tr("Video Files (*.avi *.mpg *.mkv *.mpeg *.qt *.wmv)"));
+        inputLocal=QFileDialog::getOpenFileName(this,tr("Select video to convert"),QDir::homePath(),tr("Video Files (*.avi *.mpg *.mkv *.mpeg *.qt *.wmv *.mp4)"));
     }
 }
 
@@ -138,5 +164,31 @@ void MainMenu::toggleBatch(bool isBatch)
     {
         QMessageBox::information(this,"FYI","Current selected file/directory cleared");
         inputLocal="";
+        //just in case..
+        batchFiles.clear();
     }
+}
+
+
+QList<QString> MainMenu::FetchFileList(QString path)
+{
+    QList<QString> fileList;
+
+    if(QDir(path).exists())
+    {
+        QDirIterator it(path);
+        cerr<<"Traversing directory..."<<endl;
+        QFileInfo info;
+        while(it.hasNext())
+        {
+            it.next();
+            info=it.fileInfo();
+            if(!info.isDir() && (info.suffix()=="mkv" || info.suffix()=="avi" || info.suffix()=="mpg" || info.suffix()=="mpeg" || info.suffix()=="qt" || info.suffix()=="wmv" || info.suffix()=="mp4" ))
+            {
+                fileList.append(info.fileName());
+                cerr<<it.fileName().toStdString()<<endl;
+            }
+        }
+    }
+    return fileList;
 }

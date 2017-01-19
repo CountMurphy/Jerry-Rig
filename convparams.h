@@ -11,4 +11,5 @@ public:
     int Size;
     int Quality;
     QString input;
+    QString optBuildDir;
 };

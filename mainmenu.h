@@ -27,6 +27,8 @@ private:
     ProcessManager *manager;
     QSettings *settings=new QSettings("Jerry-Rig");
     QString inputLocal;
+    QList<QString> batchFiles;
+    QList<QString> FetchFileList(QString path);
     void BeginWork();
     const double versionNumber=2.2;
 private slots:
