@@ -28,11 +28,12 @@ private:
     QSettings *settings=new QSettings("Jerry-Rig");
     QString inputLocal;
     void BeginWork();
-    const double versionNumber=2.1;
+    const double versionNumber=2.2;
 private slots:
     void ShowPref();
     void ConvertClick();
     void diaglogIt();
+    void toggleBatch(bool isBatch);
 };
 
 #endif // MAINMENU_H

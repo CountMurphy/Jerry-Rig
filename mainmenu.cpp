@@ -37,6 +37,7 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(ui->action_Prefrences,SIGNAL(triggered(bool)),this,SLOT(ShowPref()));
     connect(ui->BTNConvert,SIGNAL(clicked(bool)),this,SLOT(ConvertClick()));
     connect(ui->BTNOpen,SIGNAL(clicked(bool)),this,SLOT(diaglogIt()));
+    connect(ui->chkBatch,SIGNAL(clicked(bool)),this,SLOT(toggleBatch(bool)));
 }
 
 MainMenu::~MainMenu()
@@ -115,5 +116,27 @@ void MainMenu::disposeProcess(int status)
 
 void MainMenu::diaglogIt()
 {
-    inputLocal=QFileDialog::getOpenFileName(this,tr("Select video to convert"),QDir::homePath(),tr("Video Files (*.avi *.mpg *.mkv *.mpeg *.qt *.wmv)"));
+    if(ui->chkBatch->checkState()==Qt::Checked)
+    {
+        inputLocal=QFileDialog::getExistingDirectory(this,"Select directory for batch processing",QDir::homePath());
+    }else{
+        inputLocal=QFileDialog::getOpenFileName(this,tr("Select video to convert"),QDir::homePath(),tr("Video Files (*.avi *.mpg *.mkv *.mpeg *.qt *.wmv)"));
+    }
+}
+
+
+void MainMenu::toggleBatch(bool isBatch)
+{
+    if(isBatch)
+    {
+        ui->BTNOpen->setText("Choose Directory");
+    }else{
+        ui->BTNOpen->setText("Open");
+    }
+
+    if(inputLocal!="")
+    {
+        QMessageBox::information(this,"FYI","Current selected file/directory cleared");
+        inputLocal="";
+    }
 }
