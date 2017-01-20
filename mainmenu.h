@@ -29,12 +29,13 @@ private:
     QString inputLocal;
     QList<QString> batchFiles;
     QList<QString> FetchFileList(QString path);
+    QString convertDir;
     void BeginWork();
     const double versionNumber=2.2;
 private slots:
     void ShowPref();
     void ConvertClick();
-    void diaglogIt();
+    void diaglogBatch();
     void toggleBatch(bool isBatch);
 };
 

@@ -38,7 +38,7 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(ui->action_Quit,SIGNAL(triggered(bool)),this,SLOT(Quit()));
     connect(ui->action_Prefrences,SIGNAL(triggered(bool)),this,SLOT(ShowPref()));
     connect(ui->BTNConvert,SIGNAL(clicked(bool)),this,SLOT(ConvertClick()));
-    connect(ui->BTNOpen,SIGNAL(clicked(bool)),this,SLOT(diaglogIt()));
+    connect(ui->BTNOpen,SIGNAL(clicked(bool)),this,SLOT(diaglogBatch()));
     connect(ui->chkBatch,SIGNAL(clicked(bool)),this,SLOT(toggleBatch(bool)));
 }
 
@@ -81,15 +81,8 @@ void MainMenu::ConvertClick()
             QFile::remove(inputLocal+"_converted.mkv");
         }
     }else{
-        /*
-         * grab all files in directory (filter by type? or let fail?)
-         * input into array?
-         * feed first
-         * on complete, check array (push or pop, index count)
-         * repeat until done
-        */
-        QString convertDir=QDir(inputLocal).absoluteFilePath(QDir(inputLocal).dirName()+"_converted");
-        if(QDir(inputLocal).mkdir(convertDir) ==false)
+        convertDir=QDir(inputLocal).absoluteFilePath(QDir(inputLocal).dirName()+"_converted");
+        if(QDir().mkdir(convertDir) ==false)
         {
             QMessageBox overwriteDialog;
             int retVal=overwriteDialog.warning(this,"Convert DirectoryExists", inputLocal+"_converted" + " already exists. Overwrite?",QMessageBox::Yes,QMessageBox::No);
@@ -98,7 +91,7 @@ void MainMenu::ConvertClick()
                 return;
             }
             QDir(convertDir).removeRecursively();
-            QDir(inputLocal).mkdir(QDir(inputLocal).dirName()+"_converted");
+            QDir().mkdir(convertDir);
         }
         batchFiles=FetchFileList(inputLocal);
     }
@@ -112,7 +105,15 @@ void MainMenu::BeginWork()
     convParams params;
     params.Quality=ui->qualBox->currentIndex();
     params.Size=ui->sizeBox->currentIndex();
-    params.input=this->inputLocal;
+    if(this->batchFiles.count()>0)
+    {
+        params.input=batchFiles.first();
+        batchFiles.removeFirst();
+    }else{
+        params.input=this->inputLocal;
+    }
+
+    params.batchDir=this->convertDir;
 
     manager=new ProcessManager(this,settings,&params);
     //remove pesky close buttons and such
@@ -124,23 +125,37 @@ void MainMenu::BeginWork()
 
 void MainMenu::disposeProcess(int status)
 {
-    QString output;
-    if(status!=0)
-    {
-        output="Processed failed";
-        QMessageBox::information(this,"Failure","Video Conversion Failed!");
-    }
-    else
-    {
-        output="Conversion Complete";
-        QMessageBox::information(this,"Finished","Video Converted!");
-    }
-    cerr<<output.toStdString()<<endl;
     manager->close();
+
+    if(this->batchFiles.count()>0)
+    {
+        //if batch, swallow errors and continue
+        if(status!=0)
+        {
+            cerr<<"Last video failed"<<endl;
+        }
+
+        //repeat until there are no more items
+        BeginWork();
+
+    }else{
+        QString output;
+        if(status!=0)
+        {
+            output="Processed failed";
+            QMessageBox::information(this,"Failure","Video Conversion Failed!");
+        }
+        else
+        {
+            output="Conversion Complete";
+            QMessageBox::information(this,"Finished","Video Converted!");
+        }
+        cerr<<output.toStdString()<<endl;
+    }
 }
 
 
-void MainMenu::diaglogIt()
+void MainMenu::diaglogBatch()
 {
     if(ui->chkBatch->checkState()==Qt::Checked)
     {
@@ -166,6 +181,7 @@ void MainMenu::toggleBatch(bool isBatch)
         inputLocal="";
         //just in case..
         batchFiles.clear();
+        convertDir="";
     }
 }
 
@@ -185,7 +201,7 @@ QList<QString> MainMenu::FetchFileList(QString path)
             info=it.fileInfo();
             if(!info.isDir() && (info.suffix()=="mkv" || info.suffix()=="avi" || info.suffix()=="mpg" || info.suffix()=="mpeg" || info.suffix()=="qt" || info.suffix()=="wmv" || info.suffix()=="mp4" ))
             {
-                fileList.append(info.fileName());
+                fileList.append(QDir(path).absoluteFilePath(info.fileName()));
                 cerr<<it.fileName().toStdString()<<endl;
             }
         }

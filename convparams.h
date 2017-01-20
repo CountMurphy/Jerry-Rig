@@ -12,4 +12,5 @@ public:
     int Quality;
     QString input;
     QString optBuildDir;
+    QString batchDir;
 };

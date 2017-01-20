@@ -4,6 +4,7 @@ A GUI wrapper for both FFMPEG and LibAv to help my friend Jerry compress videos.
 
 ![Main screen](https://www.random-hackery.net/gitImages/Jerry-Rig/jrMain.png) 
 
+Now with batch renders!
 
 ***
 ## How to Build

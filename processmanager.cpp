@@ -2,6 +2,7 @@
 #include<QProcess>
 #include<QTextCodec>
 #include<QMessageBox>
+#include<QDir>
 #include "processmanager.h"
 #include "ui_processmanager.h"
 
@@ -58,7 +59,13 @@ ProcessManager::ProcessManager(QWidget *parent, QSettings *settings, convParams 
         break;
     }
 
-    args<<params->input+"_converted.mkv";
+    if(params->batchDir=="")
+    {
+        args<<params->input+"_converted.mkv";
+    }else{
+        QFileInfo currentFile(params->input);
+        args<<QDir(params->batchDir).absoluteFilePath( currentFile.fileName() +"_converted.mkv");
+    }
 
     converter->start(program, args);
 }
