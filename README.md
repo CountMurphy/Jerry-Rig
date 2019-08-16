@@ -8,7 +8,7 @@ Jerry-Rig is now discontinued. Handbrake over the years has evolved much since t
 
 A GUI wrapper for both FFMPEG and LibAv to help my friend Jerry compress videos. Its basically like handbrake, except the output isn't garbage.
 
-![Main screen](https://www.random-hackery.net/gitImages/Jerry-Rig/jrMain.png) 
+![Main screen](https://random-hackery.net/gitImages/Jerry-Rig/jrMain.png) 
 
 ***
 ## Features
